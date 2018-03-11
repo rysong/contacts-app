@@ -16,6 +16,10 @@ class V1::ContactsController < ApplicationController
     render json: contact.as_json
   end 
 
-  
+  def show 
+    contact_id = params["id"]
+    contact = Contact.find_by(id: contact_id)
+    render json: contact.as_json 
+  end 
 
 end
