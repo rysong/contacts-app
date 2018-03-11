@@ -5,6 +5,7 @@ puts "This is the Contact List App. Select an option: "
 puts "[1] Show all contacts"
 puts "[2] Create a contact" 
 puts "[3] Show a contact"
+puts "[4] Update a contact"
 
 input = gets.chomp 
 
@@ -35,6 +36,29 @@ elsif input == "3"
   response = Unirest.get("http://localhost:3000/v1/contacts/#{input_id}") 
   contact = response.body 
   puts JSON.pretty_generate(contact)
+
+elsif input == "4"
+  print "Enter a contact id: "
+  input_id = gets.chomp 
+
+  response = Unirest.get("http://localhost:3000/v1/contacts/#{input_id}") 
+  contact = response.body
+
+  params = {}
+  print "Enter an updated first name (#{contact["first_name"]}): " 
+  params["first_name"] = gets.chomp 
+  print "Enter an updated last name (#{contact["last_name"]}): " 
+  params["last_name"] = gets.chomp 
+  print "Enter an updated email (#{contact["email"]}): " 
+  params["email"] = gets.chomp 
+  print "Enter an updated phone number (#{contact["phone_number"]}): " 
+  params["phone_number"] = gets.chomp
+
+  params.delete_if { |_key, value| value.empty? }
+
+  response = Unirest.patch("http://localhost:3000/v1/contacts/#{input_id}", parameters: params)
+  updated_contact = response.body 
+  puts JSON.pretty_generate(updated_contact) 
 
 end 
 
