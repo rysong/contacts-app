@@ -35,8 +35,13 @@ elsif input == "3"
   input_id = gets.chomp 
 
   response = Unirest.get("http://localhost:3000/v1/contacts/#{input_id}") 
-  contact = response.body 
-  puts JSON.pretty_generate(contact)
+  contact = response.body  
+
+  if contact == "null" 
+    puts "a contact with that id does not exist"
+  else 
+    puts JSON.pretty_generate(contact)
+  end 
 
 elsif input == "4"
   print "Enter the id of the contact to update: "
