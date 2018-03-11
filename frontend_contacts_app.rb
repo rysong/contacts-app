@@ -1,24 +1,32 @@
 require "Unirest"
 system "clear"
 
-puts "This is the Contact List App"
-puts ""
-response = Unirest.get("http://localhost:3000/v1/contacts_site")
-contacts = response.body["contacts"]
+puts "This is the Contact List App. Select an option: "
+puts "[1] Show all contacts"
+puts "[2] Create a contact" 
 
-#puts JSON.pretty_generate(contacts) JSON gem came with Unirest 
+input = gets.chomp 
 
-index = 0
-contacts.length.times do 
-  puts "#{index + 1}."
-  puts "First Name: #{contacts[index]["first_name"]}"
-  puts "Last Name: #{contacts[index]["last_name"]}"
-  puts "Email: #{contacts[index]["email"]}"
-  puts "Phone Number: #{contacts[index]["phone_number"]}"
-  index = index + 1 
-  puts ""
+if input == "1" 
+  response = Unirest.get("http://localhost:3000/v1/contacts")
+  contacts = response.body
+  puts JSON.pretty_generate(contacts) #JSON gem came with Unirest 
+
+elsif input == "2"
+  params = {}
+  print "Enter a first name: "
+  params["first_name"] = gets.chomp 
+  print "Enter a last name: "
+  params["last_name"] = gets.chomp
+  print "Enter an email: "
+  params["email"] = gets.chomp
+  print "Enter a phone number: "
+  params["phone_number"] = gets.chomp
+
+  response = Unirest.post("http://localhost:3000/v1/contacts", parameters: params)
+  contact = response.body 
+  puts JSON.pretty_generate(contact)
 end 
-
 
 
 
