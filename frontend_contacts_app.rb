@@ -6,6 +6,7 @@ puts "[1] Show all contacts"
 puts "[2] Create a contact" 
 puts "[3] Show a contact"
 puts "[4] Update a contact"
+puts "[5] Destroy a contact" 
 
 input = gets.chomp 
 
@@ -59,6 +60,15 @@ elsif input == "4"
   response = Unirest.patch("http://localhost:3000/v1/contacts/#{input_id}", parameters: params)
   updated_contact = response.body 
   puts JSON.pretty_generate(updated_contact) 
+
+elsif input == "5"
+  print "Enter the id of the contact to destroy: "
+  input_id = gets.chomp 
+
+  response = Unirest.delete("http://localhost:3000/v1/contacts/#{input_id}") 
+  body = response.body
+
+  puts JSON.pretty_generate(body)
 
 end 
 
