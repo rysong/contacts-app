@@ -31,7 +31,7 @@ elsif input == "2"
   puts JSON.pretty_generate(contact)
 
 elsif input == "3"
-  print "Enter a contact id: "
+  print "Enter the id of the contact to show: "
   input_id = gets.chomp 
 
   response = Unirest.get("http://localhost:3000/v1/contacts/#{input_id}") 
@@ -39,7 +39,7 @@ elsif input == "3"
   puts JSON.pretty_generate(contact)
 
 elsif input == "4"
-  print "Enter a contact id: "
+  print "Enter the id of the contact to update: "
   input_id = gets.chomp 
 
   response = Unirest.get("http://localhost:3000/v1/contacts/#{input_id}") 
