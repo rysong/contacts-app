@@ -19,6 +19,8 @@ elsif input == "2"
   params = {}
   print "Enter a first name: "
   params["first_name"] = gets.chomp 
+  print "Enter a middle name: "
+  params["middle_name"] = gets.chomp
   print "Enter a last name: "
   params["last_name"] = gets.chomp
   print "Enter an email: "
@@ -53,6 +55,8 @@ elsif input == "4"
   params = {}
   print "Enter an updated first name (#{contact["first_name"]}): " 
   params["first_name"] = gets.chomp 
+  print "Enter an updated middle name (#{contact["middle_name"]}): " 
+  params["middle_name"] = gets.chomp 
   print "Enter an updated last name (#{contact["last_name"]}): " 
   params["last_name"] = gets.chomp 
   print "Enter an updated email (#{contact["email"]}): " 
