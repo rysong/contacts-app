@@ -3,7 +3,7 @@ system "clear"
 
 puts "This is the Contact List App. Select an option: "
 puts "[1] Show all contacts"
-puts "  [1.1] Search for a contact by first name" 
+puts "  [1.1] Search for a contact" 
 puts "[2] Create a contact" 
 puts "[3] Show a contact"
 puts "[4] Update a contact"
@@ -17,7 +17,7 @@ if input == "1"
   puts JSON.pretty_generate(contacts) #JSON gem came with Unirest 
 
 elsif input =="1.1"
-  print "Enter a name to search for: "
+  print "Enter a search: "
   input_search = gets.chomp 
   response = Unirest.get("http://localhost:3000/v1/contacts?input_search=#{input_search}")
   contact = response.body 

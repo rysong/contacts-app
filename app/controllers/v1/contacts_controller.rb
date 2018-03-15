@@ -5,7 +5,13 @@ class V1::ContactsController < ApplicationController
 
     search = params["input_search"]
     if search 
-      contacts = contacts.where("first_name ILIKE ?", "%#{search}%")
+      contacts = contacts.where(
+        "first_name ILIKE ? 
+        OR last_name ILIKE ?
+        OR email ILIKE ?
+        OR phone_number ILIKE ?", 
+        "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%"
+        )
     end 
     render json: contacts.as_json
   end 
