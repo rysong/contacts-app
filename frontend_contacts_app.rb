@@ -1,7 +1,21 @@
 require "Unirest"
-system "clear"
 
+system "clear"
 puts "This is the Contact List App. Select an option: "
+puts "[signup] Signup (create a user)"
+
+input_option = gets.chomp 
+if input_option == "signup"
+  params = {
+  name: "Richard",
+  email: "richard@email.com",
+  password: "password",
+  password_confirmation: "password"
+  } 
+  response = Unirest.post("http://localhost:3000/v1/users", parameters: params)
+  p response.body
+end 
+
 puts "[1] Show all contacts"
 puts "  [1.1] Search for a contact" 
 puts "[2] Create a contact" 
