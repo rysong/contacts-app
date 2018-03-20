@@ -3,8 +3,11 @@ require "Unirest"
 system "clear"
 puts "This is the Contact List App. Select an option: "
 puts "[signup] Signup (create a user)"
+puts "[login] Login (create a JSON web token)"
+puts "[logout] Logout (delete the JSON web token)"
 
 input_option = gets.chomp 
+
 if input_option == "signup"
   params = {
   name: "Richard",
@@ -14,8 +17,25 @@ if input_option == "signup"
   } 
   response = Unirest.post("http://localhost:3000/v1/users", parameters: params)
   p response.body
+
+elsif input_option == "login" 
+  response = Unirest.post(
+  "http://localhost:3000/user_token",
+  parameters: {
+    auth: {
+      email: "richard@email.com",
+      password: "password"
+    }
+  }
+  )
+  jwt = response.body["jwt"]
+  Unirest.default_header("Authorization", "Bearer #{jwt}")
+elsif input_option == "logout"
+  jwt = ""
+  Unirest.clear_default_headers()
 end 
 
+puts "Your jwt is #{jwt}"
 puts "[1] Show all contacts"
 puts "  [1.1] Search for a contact" 
 puts "[2] Create a contact" 
