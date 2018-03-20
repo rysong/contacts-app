@@ -22,7 +22,8 @@ class V1::ContactsController < ApplicationController
       middle_name: params["middle_name"], 
       last_name: params["last_name"],
       email: params["email"],
-      phone_number: params["phone_number"]
+      phone_number: params["phone_number"],
+      user_id: current_user.id 
       )
     
     if contact.save
