@@ -3,6 +3,10 @@ class V1::ContactsController < ApplicationController
   def index 
     contacts = Contact.all 
 
+    if current_user
+      contacts = current_user.contacts.order(:id => :asc)
+    end 
+
     search = params["input_search"]
     if search 
       contacts = contacts.where(
