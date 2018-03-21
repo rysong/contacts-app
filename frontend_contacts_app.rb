@@ -30,12 +30,17 @@ elsif input_option == "login"
   )
   jwt = response.body["jwt"]
   Unirest.default_header("Authorization", "Bearer #{jwt}")
+
 elsif input_option == "logout"
   jwt = ""
   Unirest.clear_default_headers()
 end 
-
 puts "Your jwt is #{jwt}"
+puts ""
+puts "Press enter to continue"
+gets.chomp 
+
+system "clear"
 puts "[1] Show all contacts"
 puts "  [1.1] Search for a contact" 
 puts "[2] Create a contact" 
